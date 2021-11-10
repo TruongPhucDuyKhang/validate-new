@@ -196,6 +196,7 @@ files.addEventListener('click', function(){
     inputFile.click();
     inputFile.addEventListener('change', function(e){
         const file = e.target.files;
+        // console.log(file[0].type);
         if (file.length > 0 && (file[0].type == "image/jpeg" ||
                                file[0].type == "image/png" ||
                                file[0].type == "image/jpg"))
@@ -222,13 +223,13 @@ document.onkeyup = function(e){
     // số trong e.which là những ký tự trên bàn phím của mình
     const shiftButton  = 16;
     const deleteButton = 46;
-
+    
     switch(e.which){
         case shiftButton:
         checkInputs();
         break;
         case deleteButton:
-        refreshForm();
+        refreshForms();
         break;
     }
 }
