@@ -6,17 +6,11 @@ const click   = document.getElementById("js_add");
 const refresh = document.getElementById("js_refresh");
 const files    = document.getElementById("js_add_avatar");
 // Regular expressions
-// |\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\{|\}|\[|\]|\;|\:|\'|\"|\,|\.|\.|\/
 const fullnameRegex = /Á|À|Ạ|Ã|Ả|Ă|Ắ|Ằ|Ẳ|Ặ|Ẵ|Â|Ấ|Ầ|Ẫ|Ẩ|Ậ|É|È|Ẽ|Ẻ|Ẹ|Ê|Ế|Ề|Ể|Ễ|Ệ|Ì|Í|Ĩ|Ị|Ỉ|Ò|Ó|Ỏ|Õ|Ọ|Ô|Ố|Ồ|Ộ|Ổ|Ỗ|Ơ|Ớ|Ờ|Ở|Ợ|Ỡ|Ú|Ù|Ủ|Ụ|Ũ|Ư|Ứ|Ừ|Ữ|Ử|Ự|Ý|Ỳ|Ỹ|Ỵ|Ỷ|Đ|á|à|ạ|ã|ả|ă|ắ|ằ|ẳ|ặ|ẵ|â|ấ|ầ|ẫ|ẩ|ậ|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ể|ễ|ệ|ì|í|ĩ|ị|ỉ|ò|ó|ỏ|õ|ọ|ô|ố|ồ|ộ|ổ|ỗ|ơ|ớ|ờ|ở|ợ|ỡ|ú|ù|ủ|ụ|ũ|ư|ứ|ừ|ữ|ử|ự|ý|ỳ|ỹ|ỵ|ỷ|đ^[a-zA-Z]+([a-zA-Z]|\s)+$/;
 const emailRegex    = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const phoneRegex    = /((09|03|07|08|05)+([0-9]{8})\b)/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 const birthdayRegex = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-
-// Function định dạng Regular expressions
-function isRegex(inputValue, regex){
-    return regex.test(inputValue);
-}
 
 // Check validation
 function checkValidation(value, input, text, regex, max, min){
@@ -43,7 +37,7 @@ function checkValidation(value, input, text, regex, max, min){
     }else if(value.trim().length < min || value.trim().length > max) {
         erroMessage;
         textInner.innerText = `${text} ${textMin} ${textMax} characters`;
-    }else if(!isRegex(value, regex)) {
+    }else if(!regex.test(value)) {
         erroMessage;
         textInner.innerText = `${text} invalid`;
     }else {
@@ -52,6 +46,7 @@ function checkValidation(value, input, text, regex, max, min){
         textInner.innerText = '';
     }
 }
+
 // Check confirm password
 function checkConfirmPassword(password, confirmPassword) {
     const input       = inputElement.confirm_password;
@@ -73,18 +68,15 @@ function checkConfirmPassword(password, confirmPassword) {
     }
 }
 
-// Định dạng form phone sau khi save
-function jsPhone(phonestr){
-    return phonestr.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-}
-
 // Hàm reset form
 function refreshForms() {
-    const previewImg = document.getElementById("preview-img");
-    inputElement.reset();
-    for(var i = 0; i < formGroupElement.length; i++){
-        formGroupElement[i].classList.remove("is-invalid");
-        formGroupElement[i].classList.remove("is-valid");
+    const input        = document.getElementById("form-validate");
+    const previewImg   = document.getElementById("preview-img");
+    const formElement  = input.querySelectorAll(".form-control");
+    input.reset();
+    for(var i = 0; i < formElement.length; i++){
+        formElement[i].classList.remove("is-invalid");
+        formElement[i].classList.remove("is-valid");
     }
     document.querySelector(".invalid-feedback").innerText = '';
     if(previewImg) {
@@ -103,8 +95,8 @@ function saveForm(result){
     if (listInvalid.length) return;
     resultFullname.innerText = result.name;
     resultEmail.innerText    = result.email;
-    resultPhone.innerText    = jsPhone(result.phone);
-    resultBirthday.innerText =  result.birthday;
+    resultPhone.innerText    = result.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+    resultBirthday.innerText = result.birthday;
 
     // hiển thị ảnh trước khi upload
     if(previewImage){

@@ -1,6 +1,4 @@
-body {
-    margin: 20px 0 20px 0;
-}
+body {margin: 20px 0 20px 0;}
 
 form {
     border: 2px solid black;
@@ -96,7 +94,6 @@ form {
     margin-left: 50px;
     margin-top: 20px;
 }
-
 
 .show-name {
     font-weight: 700;
