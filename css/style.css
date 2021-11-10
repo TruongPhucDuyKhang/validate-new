@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+    margin: 20px 0 20px 0;
 }
 
 form {
@@ -14,6 +14,14 @@ form {
     background-repeat: no-repeat;
     background-position: right calc(0.375em + 0.1875rem) center;
     background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.preview-avatar.is-required {
+    border-color: #dc3545;
+}
+
+.avatar i.is-required {
+    color: #dc3545;
 }
 
 .form-control.is-valid, .was-validated .form-control:valid {
