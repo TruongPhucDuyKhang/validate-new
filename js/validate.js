@@ -151,30 +151,30 @@ inputElement.fullname.addEventListener('input', function(){
 // On input Email
 inputElement.email.addEventListener('input', function(){
     const inputEmail = this;
-    checkValidation(inputEmail.value, inputEmail, "Email", emailRegex
-)});
+    checkValidation(inputEmail.value, inputEmail, "Email", emailRegex);
+});
 
 // On input Phone
 inputElement.phone.addEventListener('input', function(){
     const inputPhone = this;
-    checkValidation(inputPhone.value, inputPhone, "Phone", phoneRegex, 10)
+    checkValidation(inputPhone.value, inputPhone, "Phone", phoneRegex, 10);
 });
 
 // On input Birthday
 inputElement.birthday.addEventListener('input', function(){
     const inputBirthday = this;
-    checkValidation(inputBirthday.value, inputBirthday, "Birthday", birthdayRegex)
+    checkValidation(inputBirthday.value, inputBirthday, "Birthday", birthdayRegex);
 });
 
 // On input Password
 inputElement.password.addEventListener('input', function(){
     const inputPassword = this;
-    checkValidation(inputPassword.value, inputPassword, "Password", passwordRegex, 30, 8)
+    checkValidation(inputPassword.value, inputPassword, "Password", passwordRegex, 30, 8);
 });
 
 // On input Confirm Password
 inputElement.confirm_password.addEventListener('input', function(){
-    checkConfirmPassword(inputElement.password.value, this.value)
+    checkConfirmPassword(inputElement.password.value, this.value);
 });
 
 // Ghi hoa chữ cái đầu cho full name
