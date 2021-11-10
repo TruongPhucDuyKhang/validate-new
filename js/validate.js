@@ -1,5 +1,5 @@
 // Get data form
-const inputElement     = document.getElementById("form-validate");
+const inputElement = document.getElementById("form-validate");
 const formGroupElement = inputElement.querySelectorAll(".form-control");
 // Get input form
 const click   = document.getElementById("js_add");
@@ -70,9 +70,9 @@ function checkConfirmPassword(password, confirmPassword) {
 
 // Hàm reset form
 function refreshForms() {
-    const input        = document.getElementById("form-validate");
-    const previewImg   = document.getElementById("preview-img");
-    const formElement  = input.querySelectorAll(".form-control");
+    const input       = document.getElementById("form-validate");
+    const previewImg  = document.getElementById("preview-img");
+    const formElement = input.querySelectorAll(".form-control");
     input.reset();
     for(var i = 0; i < formElement.length; i++){
         formElement[i].classList.remove("is-invalid");
@@ -142,13 +142,40 @@ refresh.addEventListener('click', function(){
     refreshForms();
 });
 
-// On input all
-inputElement.fullname.addEventListener('input', function(){checkValidation(this.value, this, "Full name", fullnameRegex, 30, 8);});
-inputElement.email.addEventListener('input', function(){checkValidation(this.value, this, "Email", emailRegex)});
-inputElement.phone.addEventListener('input', function(){checkValidation(this.value, this, "Phone", phoneRegex, 10)});
-inputElement.birthday.addEventListener('input', function(){checkValidation(this.value, this, "Birthday", birthdayRegex)});
-inputElement.password.addEventListener('input', function(){checkValidation(password.value, password, "Password", passwordRegex, 30, 8)});
-inputElement.confirm_password.addEventListener('input', function(){checkConfirmPassword(inputElement.password.value, this.value)});
+// On input Fullname
+inputElement.fullname.addEventListener('input', function(){
+    const inputFullname = this;
+    checkValidation(inputFullname.value, inputFullname, "Full name", fullnameRegex, 30, 8);
+});
+
+// On input Email
+inputElement.email.addEventListener('input', function(){
+    const inputEmail = this;
+    checkValidation(inputEmail.value, inputEmail, "Email", emailRegex
+)});
+
+// On input Phone
+inputElement.phone.addEventListener('input', function(){
+    const inputPhone = this;
+    checkValidation(inputPhone.value, inputPhone, "Phone", phoneRegex, 10)
+});
+
+// On input Birthday
+inputElement.birthday.addEventListener('input', function(){
+    const inputBirthday = this;
+    checkValidation(inputBirthday.value, inputBirthday, "Birthday", birthdayRegex)
+});
+
+// On input Password
+inputElement.password.addEventListener('input', function(){
+    const inputPassword = this;
+    checkValidation(inputPassword.value, inputPassword, "Password", passwordRegex, 30, 8)
+});
+
+// On input Confirm Password
+inputElement.confirm_password.addEventListener('input', function(){
+    checkConfirmPassword(inputElement.password.value, this.value)
+});
 
 // Ghi hoa chữ cái đầu cho full name
 inputElement.fullname.addEventListener('change', function(){
