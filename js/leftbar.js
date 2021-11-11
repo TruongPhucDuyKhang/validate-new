@@ -4,7 +4,7 @@ selectCity.addEventListener('change', function(e){
     const listGroup = document.querySelectorAll(".list-group-item");
     const selected  = this.value;
     //Auto clear khi click select qua number khác
-    listGroup.forEach(city => city.listClass.remove("active"));
+    listGroup.forEach(city => city.classList.remove("active"));
     for(let i = 0; i < listGroup.length; i++){
         if(selected == "even"){
             if(i % 2 !== 0){
