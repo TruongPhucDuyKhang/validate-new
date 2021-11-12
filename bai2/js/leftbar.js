@@ -7,7 +7,7 @@ selectCity.addEventListener('change', function(e) {
     listGroup.forEach(city => city.classList.remove("active"));
     
     for (let i = 0; i < listGroup.length; i++) {
-        if(selected == "even") {
+        if (selected == "even") {
             if (i % 2 !== 0) {
                 listGroup[i].classList.add("active");
             }
