@@ -11,13 +11,13 @@ selectCity.addEventListener('change', function(e) {
             if (i % 2 !== 0) {
                 listGroup[i].classList.add("active");
             }
-        }else if (selected == "odd") {
+        } else if (selected == "odd") {
             if (i % 2 === 0) {
                 listGroup[i].classList.add("active");
             }
-        }else if (selected == "" || selected == "reset") {
+        } else if (selected == "" || selected == "reset") {
             listGroup[i].classList.remove("active");
-        }else {
+        } else {
             //selected - 1 là để so sanh cho giống index trong vòng lập for == nhau
             listGroup[selected - 1].classList.add("active");
         }
