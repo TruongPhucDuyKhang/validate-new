@@ -1,8 +1,8 @@
 const selectCity = document.querySelector(".select-city");
 //New branch
-selectCity.addEventListener('change', function(e){
+selectCity.addEventListener('change', function(e) {
     const listGroup = document.querySelectorAll(".list-group-item");
-    const selected  = this.value;
+    const selected = this.value;
     //Auto clear khi click select qua number khác
     listGroup.forEach(city => city.classList.remove("active"));
     
