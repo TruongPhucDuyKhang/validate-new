@@ -1,235 +1,232 @@
-// Get data form
+// Get on input element form
 const inputElement = document.getElementById("form-validate");
-const formGroupElement = inputElement.querySelectorAll(".form-control");
-// Get input form
-const click   = document.getElementById("js_add");
-const refresh = document.getElementById("js_refresh");
-const files    = document.getElementById("js_add_avatar");
-// Regular expressions
-const fullnameRegex = /Á|À|Ạ|Ã|Ả|Ă|Ắ|Ằ|Ẳ|Ặ|Ẵ|Â|Ấ|Ầ|Ẫ|Ẩ|Ậ|É|È|Ẽ|Ẻ|Ẹ|Ê|Ế|Ề|Ể|Ễ|Ệ|Ì|Í|Ĩ|Ị|Ỉ|Ò|Ó|Ỏ|Õ|Ọ|Ô|Ố|Ồ|Ộ|Ổ|Ỗ|Ơ|Ớ|Ờ|Ở|Ợ|Ỡ|Ú|Ù|Ủ|Ụ|Ũ|Ư|Ứ|Ừ|Ữ|Ử|Ự|Ý|Ỳ|Ỹ|Ỵ|Ỷ|Đ|á|à|ạ|ã|ả|ă|ắ|ằ|ẳ|ặ|ẵ|â|ấ|ầ|ẫ|ẩ|ậ|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ể|ễ|ệ|ì|í|ĩ|ị|ỉ|ò|ó|ỏ|õ|ọ|ô|ố|ồ|ộ|ổ|ỗ|ơ|ớ|ờ|ở|ợ|ỡ|ú|ù|ủ|ụ|ũ|ư|ứ|ừ|ữ|ử|ự|ý|ỳ|ỹ|ỵ|ỷ|đ^[a-zA-Z]+([a-zA-Z]|\s)+$/;
-const emailRegex    = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const phoneRegex    = /((09|03|07|08|05)+([0-9]{8})\b)/;
+const clickElement = document.getElementById("js_add");
+const refreshElement = document.getElementById("js_refresh");
+const fileElement = document.getElementById("js_add_avatar");
+const inputFile = document.getElementById('upload');
+const showImage = document.getElementById('show-image');
+const borderElement = document.querySelector('.preview-avatar');
+const colorElement = document.querySelector('.avatar i');
+//Regular expression
+const fullnameRegex = /[a-zA-Z]+([a-zA-Z]|\s|Á|À|Ạ|Ã|Ả|Ă|Ắ|Ằ|Ẳ|Ặ|Ẵ|Â|Ấ|Ầ|Ẫ|Ẩ|Ậ|É|È|Ẽ|Ẻ|Ẹ|Ê|Ế|Ề|Ể|Ễ|Ệ|Ì|Í|Ĩ|Ị|Ỉ|Ò|Ó|Ỏ|Õ|Ọ|Ô|Ố|Ồ|Ộ|Ổ|Ỗ|Ơ|Ớ|Ờ|Ở|Ợ|Ỡ|Ú|Ù|Ủ|Ụ|Ũ|Ư|Ứ|Ừ|Ữ|Ử|Ự|Ý|Ỳ|Ỹ|Ỵ|Ỷ|Đ|á|à|ạ|ã|ả|ă|ắ|ằ|ẳ|ặ|ẵ|â|ấ|ầ|ẫ|ẩ|ậ|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ể|ễ|ệ|ì|í|ĩ|ị|ỉ|ò|ó|ỏ|õ|ọ|ô|ố|ồ|ộ|ổ|ỗ|ơ|ớ|ờ|ở|ợ|ỡ|ú|ù|ủ|ụ|ũ|ư|ứ|ừ|ữ|ử|ự|ý|ỳ|ỹ|ỵ|ỷ|đ)+$/;
+const emailRegex    = /^[^<>()[\]\\,;:\%\_\.\*\{\}\[\]\|\/\+\=\?\'#^\s@\"$&!@]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/;
+const phoneRegex    = /^((09|03|07|08|05)+([0-9]{8}))/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
-const birthdayRegex = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+const birthdayRegex = /^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
 
-// Check validation
-function checkValidation(value, input, text, regex, max, min){
-    const formControl = input.parentElement;
-    const textInner   = formControl.querySelector('.invalid-feedback');
-    // Kiểm tra hai giá trị max, min có tồn tại hay không
-    if(min){
-        var textMin = `min length is ${min}`;
-    }else {
-        var textMin = '';
-    }
-    if(max){
-        var textMax = `max length is ${max}`;
-    }else {
-        var textMax = '';
-    }
-
-    var erroMessage = input.classList.add("is-invalid");
-    erroMessage += input.classList.remove("is-valid");
-
-    if(value.trim() == ''){
-        erroMessage;
-        textInner.innerText = `${text} is required`;
-    }else if(value.trim().length < min || value.trim().length > max) {
-        erroMessage;
-        textInner.innerText = `${text} ${textMin} ${textMax} characters`;
-    }else if(!regex.test(value)) {
-        erroMessage;
-        textInner.innerText = `${text} invalid`;
-    }else {
-        input.classList.remove("is-invalid");
-        input.classList.add("is-valid");
-        textInner.innerText = '';
-    }
-}
-
-// Check confirm password
-function checkConfirmPassword(password, confirmPassword) {
-    const input       = inputElement.confirm_password;
-    const formControl = input.parentElement;
-    const textInner   = formControl.querySelector('.invalid-feedback');
-    var erroPassword  = input.classList.add("is-invalid");
-    erroPassword += input.classList.remove("is-valid");
-
-    if(confirmPassword.trim() == '') {
-        erroPassword;
-        textInner.innerText = 'Confirm password is required';
-    }else if(password !== confirmPassword) {
-        erroPassword;
-        textInner.innerText = 'Confirm password is Invalid';
-    }else {
-        input.classList.remove("is-invalid");
-        input.classList.add("is-valid");
-        textInner.innerText = '';
-    }
-}
-
-// Hàm reset form
-function refreshForms() {
-    const input       = document.getElementById("form-validate");
-    const previewImg  = document.getElementById("preview-img");
-    const formElement = input.querySelectorAll(".form-control");
-    input.reset();
-    for(var i = 0; i < formElement.length; i++){
-        formElement[i].classList.remove("is-invalid");
-        formElement[i].classList.remove("is-valid");
-    }
-    document.querySelector(".invalid-feedback").innerText = '';
-    if(previewImg) {
-        previewImg.remove();
-    }
-}
-
-// Hàm add form
-function saveForm(result){
+//Function save form
+function saveForm(result) {
     const listInvalid    = document.querySelectorAll("input.is-invalid");
     const resultFullname = document.querySelector('.fullname');
     const resultEmail    = document.querySelector('.email');
     const resultPhone    = document.querySelector('.phone');
     const resultBirthday = document.querySelector('.birthday');
-    const previewImage   = document.querySelector('#preview-img');
+    const fileImage = document.getElementById('preview-img');
+    //Check list invalid exist => return all values not run
     if (listInvalid.length) return;
+
     resultFullname.innerText = result.name;
-    resultEmail.innerText    = result.email;
+    resultEmail.innerText    = result.email.toLowerCase();
     resultPhone.innerText    = result.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
     resultBirthday.innerText = result.birthday;
 
-    // hiển thị ảnh trước khi upload
-    if(previewImage){
-        document.querySelector('.show-img-add').innerHTML = `<img src="${previewImage.src}" alt="" />`;
+    //Upload image form
+    return fileImage ? document.querySelector('.show-img-add').innerHTML = `<img src="${fileImage.src}" alt="" />` : '';
+}
+
+//Function reset form
+function refreshElementForms() {
+    const listValids = document.querySelectorAll("input.is-valid");
+    const listInvalids = document.querySelectorAll("input.is-invalid");
+    const inputForm  = document.getElementById("form-validate");
+    const previewImg = document.getElementById("preview-img");
+    //Reset border is-invalid
+    listInvalids.forEach(listInvalid => listInvalid.classList.remove("is-invalid"));
+    //Reset border is-valid
+    listValids.forEach(listValid => listValid.classList.remove("is-valid"));
+    //Reset class is-required images
+    borderElement.classList.remove("is-required");
+    colorElement.classList.remove("is-required");
+    //Reset form and remove valid text == ''
+    inputForm.reset();
+    document.querySelector(".invalid-feedback").innerText = '';
+
+    return previewImg ? previewImg.remove() : '';
+}
+
+//toggle Class Validation
+function checkValidator(selector, errorMessage = "") {
+    if (errorMessage) {
+      selector.classList.add("is-invalid");
+      selector.classList.remove("is-valid");
+      selector.nextElementSibling.textContent = errorMessage;
+    } else {
+      selector.classList.add("is-valid");
+      selector.classList.remove("is-invalid");
     }
 }
 
-// Kiểm tra value validate on click
-function checkInputs(){
-    const fullname       = inputElement.fullname;
-    const email          = inputElement.email;
-    const phone          = inputElement.phone;
-    const birthday       = inputElement.birthday;
-    const password       = inputElement.password;
-    const confirmPassword = inputElement.confirm_password;
+//Function check Regex
+function checkRegexValidation(selector, regex, errorMessage = "") {
+    if (!regex.test(selector.value)) {
+        checkValidator(selector, errorMessage);
+    }
+}
 
-    // Check Validate
-    checkValidation(fullname.value, fullname, "Full name", fullnameRegex, 30, 8);
-    checkValidation(email.value, email, "Email", emailRegex);
-    checkValidation(phone.value, phone, "Phone", phoneRegex, 10);
-    checkValidation(birthday.value, birthday, "Birthday", birthdayRegex);
-    checkValidation(password.value, password, "Password", passwordRegex, 30, 8);
-    checkConfirmPassword(password.value, confirmPassword.value);
-    
+//Functon check Required Between Length
+function isBetween(selector, filed, minLength, maxLength) {
+    if (selector.value.trim().length < minLength || selector.value.trim().length > maxLength) {
+        return checkValidator(
+        selector,
+            `${filed} min length is ${minLength} - max length is ${maxLength} characters`
+        );
+    } else {
+        checkValidator(selector);
+    }
+}
 
-    // Add data form
+//Functon check Required max Length
+function checkRequiredMaxLength(selector, filed, maxLength) {
+    if (selector.value.trim().length > maxLength) {
+        return checkValidator(
+        selector,
+            `${filed} max length is ${maxLength} characters`
+        );
+    } else {
+        checkValidator(selector);
+    }
+}
+
+//Functon check empty value
+function checkRequiredValue(selector, errorMessage = "") {
+    if (selector.value.trim().length < 1) {
+      checkValidator(selector, `${errorMessage} is required`);
+    }
+}
+
+//On input form
+inputElement.fullname.addEventListener("input", function () {
+    isBetween(this, "Full name", 8, 30);
+    checkRegexValidation(this, fullnameRegex, "Full name invalid");
+});
+
+inputElement.email.addEventListener("input", function () {
+    if (!emailRegex.test(this.value)) {
+        checkValidator(this, "Email invalid");
+    } else {
+        checkValidator(this);
+    }
+});
+
+inputElement.phone.addEventListener("input", function () {
+    checkRequiredMaxLength(this, "Phone", 10);
+    checkRegexValidation(this, phoneRegex, "Phone start 0 Ex: 0903070508");
+});
+
+inputElement.birthday.addEventListener("input", function () {
+    const date = new Date();
+    const year = this.value.split('/');
+    if (!birthdayRegex.test(this.value) || year[2] > date.getFullYear()) {
+        checkValidator(this, "Birthday invalid");
+    } else {
+        checkValidator(this);
+    }
+});
+
+inputElement.password.addEventListener("input", function () {
+    isBetween(this, "Password", 8, 30);
+    checkRegexValidation(this, passwordRegex, "Password must contain special characters");
+});
+
+inputElement.confirm_password.addEventListener("input", function () {
+    if (this.value !== inputElement.password.value) {
+        checkValidator(this, "Confirm password invalid");
+    } else {
+        checkValidator(this);
+    }
+});
+
+//Click Element form
+clickElement.addEventListener('click', function(e) {
+    e.preventDefault();
+    //Requried values form
+    checkRequiredValue(inputElement.fullname, "Full name");
+    checkRequiredValue(inputElement.email, "Email");
+    checkRequiredValue(inputElement.phone, "Phone");
+    checkRequiredValue(inputElement.birthday, "Birthday");
+    checkRequiredValue(inputElement.password, "Password");
+    checkRequiredValue(inputElement.confirm_password, "Confirm password");
+    //Add form
     const result = {
-        name: fullname.value,
-        email: email.value,
-        phone: phone.value,
-        birthday: birthday.value,
+        name: inputElement.fullname.value,
+        email: inputElement.email.value,
+        phone: inputElement.phone.value,
+        birthday: inputElement.birthday.value
     };
     saveForm(result);
-}
-
-// Add form
-click.addEventListener('click', function(e){
-    checkInputs();
 });
 
-// Reset form
-refresh.addEventListener('click', function(){
-    refreshForms();
+//Reset Element form
+refreshElement.addEventListener('click', function() {
+    refreshElementForms();
 });
 
-// On input Fullname
-inputElement.fullname.addEventListener('input', function(){
-    const inputFullname = this;
-    checkValidation(inputFullname.value, inputFullname, "Full name", fullnameRegex, 30, 8);
-});
-
-// On input Email
-inputElement.email.addEventListener('input', function(){
-    const inputEmail = this;
-    checkValidation(inputEmail.value, inputEmail, "Email", emailRegex);
-});
-
-// On input Phone
-inputElement.phone.addEventListener('input', function(){
-    const inputPhone = this;
-    checkValidation(inputPhone.value, inputPhone, "Phone", phoneRegex, 10);
-});
-
-// On input Birthday
-inputElement.birthday.addEventListener('input', function(){
-    const inputBirthday = this;
-    checkValidation(inputBirthday.value, inputBirthday, "Birthday", birthdayRegex);
-});
-
-// On input Password
-inputElement.password.addEventListener('input', function(){
-    const inputPassword = this;
-    checkValidation(inputPassword.value, inputPassword, "Password", passwordRegex, 30, 8);
-});
-
-// On input Confirm Password
-inputElement.confirm_password.addEventListener('input', function(){
-    checkConfirmPassword(inputElement.password.value, this.value);
-});
-
-// Ghi hoa chữ cái đầu cho full name
-inputElement.fullname.addEventListener('change', function(){
+//UpperCase for Full name
+inputElement.fullname.addEventListener('change', function() {
     const valueString = this.value;
-    const splitStr    = valueString.toLowerCase().split(" ");
-    for(let i = 0; i < splitStr.length; i++){
+    const splitStr = valueString.toLowerCase().split(" ");
+
+    for (let i = 0; i < splitStr.length; i++) {
         splitStr[i]  = splitStr[i].charAt(0).toUpperCase() + splitStr[i].slice(1);
     }
+
     return this.value = splitStr.join(' ');
 });
 
-// Preview image files
-files.addEventListener('click', function(){
-    const inputFile     = document.getElementById('upload');
-    const borderElement = document.querySelector('.preview-avatar');
-    const colorElement  = document.querySelector('.avatar i');
-    const showImage     = document.getElementById('show-image');
+//Click element files
+fileElement.addEventListener('click', function() {
+    //Click input file hidden form
     inputFile.click();
-    inputFile.addEventListener('change', function(e){
-        const file = e.target.files;
-        // console.log(file[0].type);
-        if (file.length > 0 && (file[0].type == "image/jpeg" ||
-                               file[0].type == "image/png" ||
-                               file[0].type == "image/jpg"))
-        {
-            var fileToLoad = inputFile.files[0];
-            var fileReader = new FileReader();
-            fileReader.onload = function(event) {
-                var srcData  = event.target.result;
-                borderElement.classList.remove("is-required");
-                colorElement.classList.remove("is-required");
-                showImage.innerHTML = `<img src="${srcData}" alt="" id="preview-img"/>`;
-            }
-            fileReader.readAsDataURL(fileToLoad);
-        }else {
-            borderElement.classList.add("is-required");
-            colorElement.classList.add("is-required");
-            showImage.innerHTML = '';
+});
+
+
+//Preview change image when upload
+inputFile.addEventListener('change', function(e) {
+    const [file] = e.target.files;
+    const fileTypes = ["image/jpeg", "image/png", "image/jpg"];
+    //Search array file type
+    let check = fileTypes.includes(file.type);
+
+    if (file && !!check) {
+        const fileToLoad = e.target.files[0];
+        const fileReader = new FileReader();
+        fileReader.onload = function(event) {
+            const srcData  = event.target.result;
+            borderElement.classList.remove("is-required");
+            colorElement.classList.remove("is-required");
+            showImage.innerHTML = `<img src="${srcData}" alt="" id="preview-img"/>`;
         }
-    });
+        fileReader.readAsDataURL(fileToLoad);
+    } else {
+        borderElement.classList.add("is-required");
+        colorElement.classList.add("is-required");
+        showImage.innerHTML = '';
+        alert("JPEG, GIF, and PNG only");
+    }
 });
 
 // Browser key
-document.onkeyup = function(e){
-    // số trong e.which là những ký tự trên bàn phím của mình
+document.onkeyup = function(e) {
+    // number in e.which is key board of the mine
     const shiftButton  = 16;
     const deleteButton = 46;
     
-    switch(e.which){
+    switch (e.which) {
         case shiftButton:
-        checkInputs();
-        break;
+            clickElement.click();
+            break;
         case deleteButton:
-        refreshForms();
-        break;
+            refreshElementForms();
+            break;
     }
 }
