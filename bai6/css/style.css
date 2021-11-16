@@ -1,0 +1,25 @@
+body{
+    margin: 25px auto;
+}
+.table {
+    margin-bottom: 2rem;
+    border: 1px solid rgb(211, 211, 211);
+}
+
+#js-cbAdd {
+    margin-right: 25px;
+    min-width: 100px;
+}
+
+#js-cbDel {
+    color: rgb(255 255 255);
+    min-width: 120px;
+}
+
+.button-del {
+    padding-left: 28px!important;
+}
+
+.button-del a {
+    color: #979595;
+}
