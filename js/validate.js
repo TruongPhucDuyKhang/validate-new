@@ -74,8 +74,8 @@ function checkRegexValidation(selector, regex, errorMessage = "") {
 }
 
 //Functon check Required Between Length
-function isBetween(selector, filed, minLength, maxLength) {
-    if (selector.value.trim().length < minLength || selector.value.trim().length > maxLength) {
+function isBetween(selector, value, filed, minLength, maxLength) {
+    if (value.trim().length < minLength || value.trim().length > maxLength) {
         return checkValidator(
         selector,
             `${filed} min length is ${minLength} - max length is ${maxLength} characters`
@@ -106,16 +106,14 @@ function checkRequiredValue(selector, errorMessage = "") {
 
 //On input form
 inputElement.fullname.addEventListener("input", function () {
-    isBetween(this, "Full name", 8, 30);
+    isBetween(this, this.value, "Full name", 8, 30);
     checkRegexValidation(this, fullnameRegex, "Full name invalid");
 });
 
 inputElement.email.addEventListener("input", function () {
-    if (!emailRegex.test(this.value)) {
-        checkValidator(this, "Email invalid");
-    } else {
-        checkValidator(this);
-    }
+    const splitValueEmail = this.value.split('@');
+    isBetween(this, splitValueEmail[0], "Email", 6, 30);
+    checkRegexValidation(this, emailRegex, "Email invalid");
 });
 
 inputElement.phone.addEventListener("input", function () {
@@ -134,7 +132,7 @@ inputElement.birthday.addEventListener("input", function () {
 });
 
 inputElement.password.addEventListener("input", function () {
-    isBetween(this, "Password", 8, 30);
+    isBetween(this, this.value, "Password", 8, 30);
     checkRegexValidation(this, passwordRegex, "Password must contain special characters");
 });
 
@@ -188,7 +186,6 @@ fileElement.addEventListener('click', function() {
     //Click input file hidden form
     inputFile.click();
 });
-
 
 //Preview change image when upload
 inputFile.addEventListener('change', function(e) {
