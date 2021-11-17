@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Bài 3 - Chat</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-center">
+                <section class="section-1">
+                    <header class="chat-header">
+                        <div class="chat-header-title">
+                            <img class="avatar-header" src="img/brother-duy.png" alt="">
+                            [RS.DN] Vo Dinh Duy
+                        </div>
+                    </header>
+                    <main class="chat-show"></main>
+                    <div class="list-btn text-left">
+                        <button class="btn btn-outline-dark btn-bold">Đậm</button>
+                        <button class="btn btn-outline-info btn-italic">Nghiêng</button>
+                        <button class="btn btn-outline-success btn-reset">Reset</button>
+                        <!-- Form message send 1 -->
+                        <form class="form-message text-left">
+                            <div class="message_input" contenteditable="true"></div>
+                            <button type="button" class="message-send-btn btn btn-primary" disabled>
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-6 text-center">
+                <section class="section-2">
+                    <header class="chat-header">
+                        <div class="chat-header-title">
+                            <img class="avatar-header" src="img/avatar-chatwork.jpg" alt="">
+                            [RS.DN] Truong Phuc Duy Khang - Fresher PHP
+                        </div>
+                    </header>
+                    <main class="chat-show">
+                    </main>
+                    <div class="list-btn text-left">
+                        <button class="btn btn-outline-dark btn-bold">Đậm</button>
+                        <button class="btn btn-outline-info btn-italic">Nghiêng</button>
+                        <button class="btn btn-outline-success btn-reset">Reset</button>
+                        <!-- Form message send 2 -->
+                        <form class="form-message text-left">
+                            <div class="message_input" contenteditable="true"></div>
+                            <button type="button" class="message-send-btn btn btn-primary" disabled>
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/chat.js"></script>
+</body>
+</html>
