@@ -13,6 +13,8 @@ const name = document.getElementById("name");
 const phone = document.getElementById("phone");
 const email = document.getElementById("email");
 let profileContent = JSON.parse(localStorage.getItem("profileContent"));
+const emailRegex = /^[^<>()[\]\\,;:\%\_\.\*\{\}\[\]\|\/\+\=\?\'#^\s@\"$&!@]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/;
+const phoneRegex = /^((09|03|07|08|05)+([0-9]{8}))/;
 
 //Show html profile
 showProfileItem = (id, name, phone, email) => {
@@ -38,6 +40,31 @@ getProfileContent = (id, name, phone, email) => {
     resultPR.insertAdjacentHTML("afterend", showProfileItem(id, name, phone, email));
 }
 
+//Check toggle validator
+checkValidator = (errorMessage = "") => {
+    if (errorMessage) {
+        mess({
+            message: errorMessage,
+            type: "error",
+            duration: 3000
+        });
+    }
+}
+
+//Check required null
+checkRequiredValue = (selector, errorMessage = "") => {
+    if (selector.textContent.trim().length < 1) {
+        checkValidator(`${errorMessage} is required`);
+    }
+}
+
+//Function check Regex
+checkRegexValidation = (selector, regex, errorMessage = "") => {
+    if (!regex.test(selector.textContent)) {
+        checkValidator(errorMessage);
+    }
+}
+
 // check profile if have will forEach to HTML
 if (profileContent) {
     profileContent.forEach(function (profileItem, index) {
@@ -47,18 +74,22 @@ if (profileContent) {
 
 //Add profile
 addProfile = (name, phone, email) => {
-    if (!name || !phone || !email) return;
+    if (!name.textContent || !phone.textContent || !email.textContent) return;
+    //Check Regex list
+    checkRegexValidation(email, emailRegex, "Email invalid");
+    checkRegexValidation(phone, phoneRegex, "Phone invalid");
+    if (!emailRegex.test(email.textContent) || !phoneRegex.test(phone.textContent)) return;
 
     profileContent = JSON.parse(localStorage.getItem("profileContent"));
     if (profileContent) {
         profileContent.push({
-            name: name,
-            phone: phone,
-            email: email,
+            name: name.textContent,
+            phone: phone.textContent,
+            email: email.textContent,
         });
         localStorage.setItem("profileContent", JSON.stringify(profileContent));
     } else {
-        const newProfileContent = { name: name, phone: phone, email: email };
+        const newProfileContent = { name: name.textContent, phone: phone.textContent, email: email.textContent };
         localStorage.setItem("profileContent", JSON.stringify([newProfileContent]));
     }
     location.reload();
@@ -67,6 +98,7 @@ addProfile = (name, phone, email) => {
 handleDbClickElement = (selector) => {
     selector.ondblclick = function (e) {
         e.target.setAttribute('contenteditable', true);
+        selector.focus();
     }
 }
 
@@ -75,7 +107,7 @@ handleOutFocusElement = (id) => {
     const outInputName = document.querySelector(".name-" + id);
     const outInputPhone = document.querySelector(".phone-" + id);
     const outInputEmail = document.querySelector(".email-" + id);
-    if (!outInputName.textContent.trim() || !outInputPhone.textContent.trim() || !outInputEmail.textContent.trim()) return location.reload();
+    if (!outInputName.textContent.trim() || !outInputPhone.textContent.trim() || !outInputEmail.textContent.trim() || !emailRegex.test(email.textContent) || !phoneRegex.test(phone.textContent)) return location.reload();
     profileContent = JSON.parse(localStorage.getItem("profileContent"));
     if (profileContent) {
         //Set attribute content edit table false;
@@ -110,7 +142,12 @@ handleElementValue();
 
 //Event on click add profile
 jsCbAdd.addEventListener('click', () => {
-    addProfile(name.textContent, phone.textContent, email.textContent);
+    //Check null value required
+    checkRequiredValue(name, "Full name");
+    checkRequiredValue(phone, "Phone");
+    checkRequiredValue(email, "Email");
+    //Add profile
+    addProfile(name, phone, email);
 });
 
 // Select check box all
