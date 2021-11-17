@@ -1,0 +1,181 @@
+body {
+  margin: 25px auto;
+}
+.table {
+  margin-bottom: 2rem;
+  border: 1px solid rgb(211, 211, 211);
+}
+
+#js-cbAdd {
+  margin-right: 25px;
+  min-width: 100px;
+}
+
+#js-cbDel {
+  color: rgb(255 255 255);
+  min-width: 120px;
+}
+
+.button-del {
+  padding-left: 28px !important;
+}
+
+.button-del a {
+  color: #979595;
+}
+
+/* ======= Message ======== */
+#mess {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  z-index: 999999;
+}
+
+.mess-success {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 24px;
+  background-color: #5dd274;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+  color: #000;
+  border-radius: 4px;
+  margin: 0px;
+  opacity: 1;
+  border-left: 4px solid;
+  transition: 0.3s all ease-in-out;
+  min-height: 45px;
+  pointer-events: all;
+  margin: 10px auto;
+}
+
+.mess-error {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 24px;
+  background-color: #ff1800;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+  color: #000;
+  border-radius: 4px;
+  margin: 0px;
+  opacity: 1;
+  border-left: 4px solid;
+  transition: 0.3s all ease-in-out;
+  min-height: 45px;
+  pointer-events: all;
+  margin: 10px auto;
+}
+
+.mess-warning {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 24px;
+  background-color: #ff9d4c;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+  color: #fff;
+  border-radius: 4px;
+  margin: 0px;
+  opacity: 1;
+  border-left: 4px solid;
+  transition: 0.3s all ease-in-out;
+  min-height: 45px;
+  pointer-events: all;
+  margin: 10px auto;
+}
+
+.mess__body {
+  padding-left: 12px;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(calc(100% + 32px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+.mess--success {
+  border-color: #78ab82;
+}
+
+.mess--success .mess__icon {
+  color: #fbfbfb;
+}
+
+.mess--info {
+  border-color: #2f86eb;
+}
+
+.mess--info .mess__icon {
+  color: #2f86eb;
+}
+
+.mess--warning {
+  border-color: #f9801a;
+}
+
+.mess--warning .mess__icon {
+  color: #efefef;
+}
+
+.mess--error {
+  border-color: #fd623e;
+}
+
+.mess--error .mess__icon {
+  color: #f5f5f5;
+}
+
+.mess + .mess {
+  margin-top: 24px;
+}
+
+.mess__icon {
+  font-size: 24px;
+}
+
+.mess__icon,
+.mess__close {
+  padding: 0 16px;
+}
+
+.mess__body {
+  flex-grow: 1;
+}
+
+.mess__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  position: absolute;
+  padding-top: 11px;
+}
+
+.mess__msg {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  padding-top: 32px;
+}
+
+.mess__close {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
