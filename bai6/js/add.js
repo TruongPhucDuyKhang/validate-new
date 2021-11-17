@@ -107,7 +107,7 @@ handleOutFocusElement = (id) => {
     const outInputName = document.querySelector(".name-" + id);
     const outInputPhone = document.querySelector(".phone-" + id);
     const outInputEmail = document.querySelector(".email-" + id);
-    if (!outInputName.textContent.trim() || !outInputPhone.textContent.trim() || !outInputEmail.textContent.trim()) return location.reload();
+    if (!outInputName.textContent.trim() || !outInputPhone.textContent.trim() || !outInputEmail.textContent.trim() || !emailRegex.test(outInputEmail.textContent) || !phoneRegex.test(outInputPhone.textContent)) return location.reload();
     profileContent = JSON.parse(localStorage.getItem("profileContent"));
     if (profileContent) {
         //Set attribute content edit table false;
